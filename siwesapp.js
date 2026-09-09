@@ -19,14 +19,14 @@ form.addEventListener('submit', (event) => {
 
   formData.append('fullName', nameValue);
   formData.append('imageDescription', photoDescription);
-  formData.append('image', image);
+  formData.append('photo', image);
 
   fetch('submit.php', {
     method: 'POST',
     body: formData,
   })
     .then((response) => {
-      return response.text();
+      return response.json();
     })
     .then((data) => {
       console.log(data);
