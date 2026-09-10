@@ -84,3 +84,36 @@ function validation() {
   }
   return true;
 }
+
+const cards = document.getElementById('cards');
+const studentName = document.getElementById('studentName');
+const imgDescription = document.getElementById('imgDescription');
+const projectImage = document.getElementById('projectImage');
+
+fetch('getsubmissions.php')
+  .then((response) => {
+    return response.json();
+  })
+  .then((data) => {
+    data.forEach((post) => {
+      cards.innerHTML += `
+    <div class="card">
+      <div class="card-image">
+        <img src="${post.Image_url}" alt="Project image">
+      </div>
+
+      <h3>${post.full_name}</h3>
+      <p>${post.Image_description}</p>
+    </div>
+  `;
+    });
+
+    console.log(data);
+  })
+  .catch((err) => {
+    console.log('Rejected:', err);
+  });
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./service-worker.js');
+}
