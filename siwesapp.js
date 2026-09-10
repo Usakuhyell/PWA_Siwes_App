@@ -4,6 +4,9 @@ const image = document.getElementById('image');
 const form = document.getElementById('uploadform');
 
 form.addEventListener('submit', (event) => {
+  const submitText = document.getElementById('submit');
+  submitText.textContent = 'Uploading...';
+
   event.preventDefault();
 
   const isValid = validation();
@@ -29,6 +32,9 @@ form.addEventListener('submit', (event) => {
       return response.json();
     })
     .then((data) => {
+      if (data.status === 'success') {
+        submitText.textContent = 'Click Home to see your photo';
+      }
       console.log(data);
       form.reset();
     })
@@ -108,7 +114,7 @@ fetch('getsubmissions.php')
   `;
     });
 
-    console.log(data);
+    console.log('Data fetched successfully');
   })
   .catch((err) => {
     console.log('Rejected:', err);
